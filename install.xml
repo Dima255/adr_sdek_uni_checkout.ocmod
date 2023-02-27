@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>Адрес ПВЗ СДЭК в поле Адрес</name>
+	<code>adr_sdek_uni_checkout</code>
+	<version>1.0</version>
+	<author>&lt;a href=&quot;https://github.com/Dima255&quot; &gt;GitHub&lt;/a&gt;</author>
+	<link>https://github.com/Dima255</link>
+  <file path="catalog/view/theme/unishop2/template/checkout/uni_checkout.twig">
+    <operation>
+      <search><![CDATA[$('.unicheckout-sticky__wrapper').html($(data).find('.unicheckout-sticky__wrapper').html());]]></search>
+      <add position="after"><![CDATA[
+	var rbvalue = $('input[name="shipping_method"]:checked').val();
+	var incStr = rbvalue.includes("ll_cdek");
+        if (incStr == true) {
+        let adrstr = $(".shipping-method__quote").text();
+		adrstr = adrstr.substring(adrstr.search(":"));
+		adrstr = adrstr.replace(":", "");
+		adrstr = adrstr.split("(")[0];
+		let usradr = $("input[name=address_1]").val(adrstr);
+ 		}
+      ]]></add>
+    </operation>
+  </file>
+</modification>
