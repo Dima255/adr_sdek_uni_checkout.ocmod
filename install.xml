@@ -9,7 +9,7 @@
     <operation>
       <search><![CDATA[$('.unicheckout-sticky__wrapper').html($(data).find('.unicheckout-sticky__wrapper').html());]]></search>
       <add position="after"><![CDATA[
-		let rbvalue = $('input[name="shipping_method"]:checked').val();
+		let rbvalue = $('input[name="shipping_method"]:checked').val() || '';
 		let incStr = rbvalue.includes("ll_cdek");
         if (incStr == true) {
         let adrstr = $(".shipping-method__quote").text();
