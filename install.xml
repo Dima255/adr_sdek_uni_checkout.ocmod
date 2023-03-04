@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.1.0" encoding="utf-8"?>
 <modification>
 	<name>Адрес ПВЗ СДЭК в поле Адрес</name>
 	<code>adr_sdek_uni_checkout</code>
@@ -9,15 +9,23 @@
     <operation>
       <search><![CDATA[$('.unicheckout-sticky__wrapper').html($(data).find('.unicheckout-sticky__wrapper').html());]]></search>
       <add position="after"><![CDATA[
-		let rbvalue = $('input[name="shipping_method"]:checked').val() || '';
-		let incStr = rbvalue.includes("ll_cdek");
-        if (incStr == true) {
-        let adrstr = $(".shipping-method__quote").text();
+		let adrstr = $('.unicheckout-sticky__total-title').text();//Получаем значение выбранного адреса ПВЗ
+		let rbvalue = $('input[value = "ll_cdek.ll_cdek_136"]:checked').val() || '';//Получаем значение radio
+		if (rbvalue == "ll_cdek.ll_cdek_136") {//Если выбрана доставка до ПВЗ id=136
+		//Настраивается в зависимости от вида adrstr
 		adrstr = adrstr.substring(adrstr.search(":"));
 		adrstr = adrstr.replace(":", "");
-		adrstr = adrstr.split("(")[0];
+		adrstr = adrstr.substring(adrstr.search(":"));
+		adrstr = adrstr.replace(":", "");
+		adrstr = adrstr.substring(adrstr.search(":"));
+		adrstr = adrstr.replace(":", "");
+		adrstr = adrstr.split(":")[0];
+		//Вывод адреса ПВЗ в поле адрес
 		let usradr = $("input[name=address_1]").val(adrstr);
- 		}
+		}
+		else {
+		let usradr = $("input[name=address_1]").val('');// При выборе другого вида доставки, очищает поле адрес
+		}
       ]]></add>
     </operation>
   </file>
